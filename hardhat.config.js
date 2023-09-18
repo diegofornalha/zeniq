@@ -50,7 +50,8 @@ module.exports = {
         },
         zeniq: {
             accounts,
-            url: "https://smart.zeniq.network:9545"
+            url: "https://smart.zeniq.network:9545",
+            chainId: 383414847825
         }
     }
 };
