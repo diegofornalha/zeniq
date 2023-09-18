@@ -1,12 +1,20 @@
+// Adicione esta linha no início do arquivo para carregar as variáveis de ambiente
+require('dotenv').config();
+
 require("@nomiclabs/hardhat-ethers");
 const {extendEnvironment} = require('hardhat/config');
 const fs = require("fs");
 const {resolve} = require("path");
 
-let mnemonic = 'test test test test test test test test test test test test';
+// Carregue o mnemônico do arquivo .env
+const { MNEMONIC } = process.env;
+
+let mnemonic;
 try {
   mnemonic = fs.readFileSync(resolve(__dirname, '.secret')).toString().trim();
-} catch (ignore){}
+} catch (ignore){
+  mnemonic = MNEMONIC;
+}
 
 const accounts = {
     mnemonic,
