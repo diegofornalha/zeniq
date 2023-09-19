@@ -1,120 +1,106 @@
-# Distributor Contract Hardhat
+# **Zeniq - Simple Ether Distributor**
 
-This project contains a simple distributor contract written in Solidity.
-The purpose of the contract is to make Smartchain-faucets much more scalable.
-You can fork this repo to develop new contracts for the ZENIQ Smartchain!
-The repo includes a readymade setup for testing and deploying contracts to the ZENIQ Smartchain.
+## **Descrição**
 
-# Smart Contract Workshop
+Este projeto é um contrato inteligente simples escrito em Solidity para distribuir Ether entre um conjunto de endereços. O projeto utiliza o ambiente de desenvolvimento Hardhat e a biblioteca ethers.js.
 
-The instructions below have been used for creating this project.
-You could repeat those commands if you prefer a new setup instead of forking this repo.
+## **Índice**
 
-## Setup Project
+- **[Pré-requisitos](https://chat.openai.com/c/c9518ab3-74e3-4fbf-9cf1-d646b9210b11#pr%C3%A9-requisitos)**
+- **[Instalação](https://chat.openai.com/c/c9518ab3-74e3-4fbf-9cf1-d646b9210b11#instala%C3%A7%C3%A3o)**
+- **[Configuração](https://chat.openai.com/c/c9518ab3-74e3-4fbf-9cf1-d646b9210b11#configura%C3%A7%C3%A3o)**
+- **[Compilação](https://chat.openai.com/c/c9518ab3-74e3-4fbf-9cf1-d646b9210b11#compila%C3%A7%C3%A3o)**
+- **[Deploy](https://chat.openai.com/c/c9518ab3-74e3-4fbf-9cf1-d646b9210b11#deploy)**
+- **[Execução de Testes](https://chat.openai.com/c/c9518ab3-74e3-4fbf-9cf1-d646b9210b11#execu%C3%A7%C3%A3o-de-testes)**
+- **[Interagindo com o Contrato](https://chat.openai.com/c/c9518ab3-74e3-4fbf-9cf1-d646b9210b11#interagindo-com-o-contrato)**
 
-### Base Project
-- git init
-- npm init -y
-- npm i hardhat
-- npx hardhat
-    - create JS/TS project + hardhat config
+## **Pré-requisitos**
 
-### Ethers
-- npm i --save-dev ethers@5.7.2
-- npm i --save-dev @nomiclabs/hardhat-ethers
-    - add to hardhat.config.js (Explain config system)
+- Node.js e npm: Você pode baixá-los **[aqui](https://nodejs.org/)**.
 
-## Changes for Zeniq Smartchain
+## **Instalação**
 
-```
-const mnemonic = 'test test test test test test test test test test test test';
-const accounts = {
-    mnemonic,
-    count: 10
-}
+1. **Clonar o Repositório**:
+    
+    ```bash
+    bashCopy code
+    git clone https://github.com/diegofornalha/zeniq.git
+    
+    ```
+    
+2. **Navegar até o Diretório do Projeto**:
+    
+    ```bash
+    bashCopy code
+    cd zeniq
+    
+    ```
+    
+3. **Instalar Dependências**:
+    
+    ```bash
+    bashCopy code
+    npm install
+    
+    ```
+    
 
-/** @type import('hardhat/config').HardhatUserConfig */
-module.exports = {
-    solidity: {
-        compilers: [
-            {
-                version: "0.8.21",
-                settings: {
-                    optimizer: {
-                        enabled: true,
-                        runs: 200000
-                    },
-                    viaIR: true
-                }
-            }
-        ]
-    },
-    networks: {
-        localhost: {
-            accounts
-        },
-        hardhat: {
-            accounts
-        },
-        zeniq: {
-            accounts,
-            url: "https://smart.zeniq.network:9545"
-        }
-    }
-};
-```
-- Explain:
-    - solidity compiler settings
-    - viaIR settings
-    - optimizer settings
-    - accounts
-    - networks
-- hardhard console + `await ethers.provider.getBlock()`
-    - show timestamp
+## **Configuração**
 
-## Writing a Contract
+1. Crie um arquivo **`.env`** ou **`.secret`** no diretório raiz do projeto.
+2. Adicione o mnemônico e outras variáveis de ambiente necessárias.
+    
+    **Exemplo de `.env`**:
+    
+    ```
+    envCopy code
+    MNEMONIC=seu mnemônico aqui
+    
+    ```
+    
+    **Nota**: Certifique-se de que este arquivo não seja incluído no controle de versão.
+    
 
-- pragma/SPDX
-- contract class structure + constructor
-- address.call()
+## **Compilação**
 
-### Distribute function
+Para compilar o contrato, execute o seguinte comando:
+
+```bash
+bashCopy code
+npx hardhat compile
 
 ```
-contract Distributor {
-    function distribute(address payable[] memory targets)
-    payable
-    external {
-        uint length = targets.length;
 
-        require(length > 0);
-        require(msg.value > length);
+## **Deploy**
 
-        uint amount = msg.value / length;
-        for(uint i = 0; i < length; i++) {
-            (bool success, ) = targets[i].call{value: amount}("");
-            require(success);
-        }
-    }
-}
+Para fazer o deploy do contrato, execute o seguinte comando:
+
+```bash
+bashCopy code
+npx hardhat run scripts/deploy.js
+
 ```
 
-### Deploy script
-`require.main === module` check
+O endereço do contrato implantado será exibido no console.
 
-## Test cases
+## **Execução de Testes**
 
-- npm i --save-dev @nomicfoundation/hardhat-network-helpers
-    - load fixture
-- npm i --save-dev chai-as-promised
-- extend hardhat environment
+Para executar os testes, use o seguinte comando:
+
+```bash
+bashCopy code
+npx hardhat test
+
 ```
-const {extendEnvironment} = require('hardhat/config');
-extendEnvironment(hre => {
-   hre.accounts = hre.ethers.getSigners().then(ac => ac.map(a => a.address));
-});
-```
-- write deploy testcase
-- write distribute testcase
 
-### Deploy and test
+## **Interagindo com o Contrato**
+
+Você pode usar o script **`distribute.js`** para interagir com o contrato:
+
+```bash
+bashCopy code
+npx hardhat run scripts/distribute.js
+
+```
+
+---
