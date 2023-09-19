@@ -1,22 +1,26 @@
-const { ethers } = require('ethers');
-const fs = require('fs');
-const path = require('path');
+const hre = require("hardhat");
 
 async function main() {
-  const [deployer] = await ethers.getSigners();
+  // Obter a conta que fará o deploy
+  const [deployer] = await hre.ethers.getSigners();
   console.log(`Deploying from address: ${deployer.address}`);
 
-  const Alert = await ethers.getContractFactory('Alert');
-  const alert = await Alert.deploy();
+  // Compilar e obter o contrato
+  const Ecomap = await hre.ethers.getContractFactory("Ecomap");
 
-  await alert.deployed();
+  // Fornecer a mensagem inicial e fazer o deploy do contrato
+  const initialMessage = "Hello, Ecomap!";
+  const ecomap = await Ecomap.deploy(initialMessage);
 
-  console.log(`Alert contract deployed to address: ${alert.address}`);
+  // Aguardar o deploy ser confirmado
+  await ecomap.deployed();
+
+  console.log(`Ecomap contract deployed to address: ${ecomap.address}`);
 }
 
 main()
   .then(() => process.exit(0))
-  .catch(error => {
+  .catch((error) => {
     console.error(error);
     process.exit(1);
   });

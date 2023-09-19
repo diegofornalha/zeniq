@@ -1,22 +1,37 @@
-const Web3 = require('web3');
-const web3 = new Web3('https://smart.zeniq.network:9545'); // Substitua pelo seu provedor de Ethereum
+const hre = require("hardhat");
 
-const contractAddress = '0x29c1e899e0fFF5374F4b093EBf34437A2fC8a40b'; // Substitua pelo endereço do contrato Ecomap
-const contractABI = require('/Users/coflow/Desktop/zeniq/artifacts/contracts/Ecomap.sol/Message.json').abi; // Use o ABI do arquivo JSON
+async function main() {
+  // Obter a conta que interagirá com o contrato
+  const [account] = await hre.ethers.getSigners();
+  console.log(`Interacting from address: ${account.address}`);
 
-const ecomap = new web3.eth.Contract(contractABI, contractAddress);
+  // Endereço do contrato Ecomap implantado
+  const ecomapAddress = "0x2858B09643277Cb9cd4C5592a38a2195434ef398";
 
-async function setMessage(newMessage) {
-    const accounts = await web3.eth.getAccounts();
-    await ecomap.methods.setMessage(newMessage).send({ from: accounts[0] });
+
+  // Criar uma instância do contrato Ecomap
+  const Ecomap = await hre.ethers.getContractFactory("Ecomap");
+  const ecomap = Ecomap.attach(ecomapAddress);
+
+  // Chamar a função getMessage e exibir a mensagem atual
+  const currentMessage = await ecomap.getMessage();
+  console.log(`Current message: ${currentMessage}`);
+
+  // Definir uma nova mensagem usando a função setMessage
+  const newMessage = "Hello, this is the new message!";
+  const setMessageTx = await ecomap.setMessage(newMessage);
+
+  // Aguardar a transação ser confirmada
+  await setMessageTx.wait();
+
+  // Verificar se a mensagem foi atualizada
+  const updatedMessage = await ecomap.getMessage();
+  console.log(`Updated message: ${updatedMessage}`);
 }
 
-async function getMessage() {
-    const message = await ecomap.methods.getMessage().call();
-    console.log('Mensagem armazenada no contrato:', message);
-}
-
-// Exemplo de uso
-setMessage('Olá, mundo!').then(() => {
-    return getMessage();
-});
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
