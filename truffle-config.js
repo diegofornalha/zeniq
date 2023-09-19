@@ -17,8 +17,14 @@ module.exports = {
       provider: () => new HDWalletProvider(PRIVATE_KEY, "https://smart.zeniq.network:9545"),
       network_id: 383414847825,
       gasPrice: 20000000000
+    },
+    truffleDashboard: {
+      provider: () => new HDWalletProvider(PRIVATE_KEY, "https://smart.zeniq.network:9545"),
+      network_id: 383414847825,
+      gasPrice: 20000000000
     }
   },
+
   compilers: {
     solc: {
       version: "0.7.3",  // Alinhe esta versão com a versão usada em seus contratos Solidity e hardhat.config.js
