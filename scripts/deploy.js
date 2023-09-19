@@ -1,23 +1,22 @@
-const hre = require('hardhat');
-const {ethers} = hre;
+const { ethers } = require('ethers');
+const fs = require('fs');
+const path = require('path');
 
-async function deploy() {
-    const accounts = await hre.accounts;
-    const contract = await ethers.deployContract('Distributor', []);
-    console.log('Deployed at:', contract.address);
-    return {
-        accounts,
-        distributor: contract
-    };
+async function main() {
+  const [deployer] = await ethers.getSigners();
+  console.log(`Deploying from address: ${deployer.address}`);
+
+  const Alert = await ethers.getContractFactory('Alert');
+  const alert = await Alert.deploy();
+
+  await alert.deployed();
+
+  console.log(`Alert contract deployed to address: ${alert.address}`);
 }
 
-if(require.main === module) {
-    deploy().catch((error) => {
-        console.error(error);
-        process.exitCode = 1;
-    });
-}
-
-module.exports = {
-    deploy
-}
+main()
+  .then(() => process.exit(0))
+  .catch(error => {
+    console.error(error);
+    process.exit(1);
+  });
