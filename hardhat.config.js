@@ -1,5 +1,6 @@
 require("@nomiclabs/hardhat-waffle");
-require("dotenv").config();  
+require("dotenv").config();
+require("@truffle/dashboard-hardhat-plugin");
 
 module.exports = {
   defaultNetwork: "hardhat",
