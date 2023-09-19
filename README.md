@@ -44,7 +44,7 @@ Este projeto é um contrato inteligente simples escrito em Solidity chamado ecom
 Para abrir o Truffle Dashboard, você pode executar o seguinte comando:
 
 ```bash
-truffle dashboard
+sudo truffle dashboard
 ```
 
 ## **Deploy com Truffle Dashboard**
@@ -52,7 +52,7 @@ truffle dashboard
 Para fazer o deploy do contrato usando o Truffle Dashboard, execute o seguinte comando:
 
 ```bash
-sudo npx hardhat run scripts/deploy.js --network truffleDashboard
+sudo npx truffle run scripts/deploy.js --network truffleDashboard
 ```
 
 ## **Configuração do `.env`**
@@ -120,3 +120,55 @@ sudo npx hardhat run scripts/distribute.js --network zeniq
 ```
 
 Isso executará o script e interagirá com o contrato implantado na rede Zeniq.
+
+### **Removendo Artefatos e** truffle
+
+1. **Remover a Pasta de Artefatos**
+    
+    ```bash
+    sudo rm -rf build/
+    ```
+    
+2. **Instalar Dependências**
+    
+    ```bash
+    sudo npm install
+    ```
+    
+3. **Compilar Contratos**
+    
+    ```bash
+    sudo truffle compile
+    ```
+    
+4. **Implantar Contratos**
+    
+    ```bash
+    sudo truffle migrate --reset
+    ```
+    
+5. **Executar Testes (Opcional)**
+    
+    ```bash
+    sudo truffle development
+    ```
+    
+    ### **Migre os Contratos**
+    
+    Agora você pode migrar seus contratos para a rede de desenvolvimento.
+    
+    ```bash
+    sudo truffle migrate --network development
+    ```
+    
+    O flag **`--network development`** especifica que você deseja usar as configurações da rede de desenvolvimento definidas no seu **`truffle-config.js`**.
+    
+    ### **Teste os Contratos (Opcional)**
+    
+    Se você tiver testes escritos, você pode executá-los para garantir que tudo está funcionando como esperado.
+    
+    ```bash
+    sudo truffle development
+    ```
+    
+    Esses comandos devem implantar seus contratos na rede de desenvolvimento local configurada pelo Ganache. Certifique-se de que o Ganache está rodando e acessível para que esses comandos funcionem como esperado.
