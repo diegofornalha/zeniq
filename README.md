@@ -82,7 +82,7 @@ sudo npx hardhat compile
 Para fazer o deploy do contrato, execute o seguinte comando:
 
 ```bash
-sudo npx hardhat run scripts/deploy.j
+sudo npx hardhat run scripts/deploy.js
 ```
 
 O endereço do contrato implantado será exibido no console.
