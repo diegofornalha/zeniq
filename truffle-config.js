@@ -3,8 +3,8 @@ require('dotenv').config();
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 
-// Carregue o mnemônico do arquivo .env
-const { MNEMONIC } = process.env;
+// Carregue a chave privada do arquivo .env
+const { PRIVATE_KEY } = process.env;
 
 module.exports = {
   networks: {
@@ -14,14 +14,14 @@ module.exports = {
       network_id: "*"
     },
     zeniq: {
-      provider: () => new HDWalletProvider(MNEMONIC, "https://smart.zeniq.network:9545"),
+      provider: () => new HDWalletProvider(PRIVATE_KEY, "https://smart.zeniq.network:9545"),
       network_id: 383414847825,
       gasPrice: 20000000000
     }
   },
   compilers: {
     solc: {
-      version: "0.8.19",
+      version: "0.7.3",  // Alinhe esta versão com a versão usada em seus contratos Solidity e hardhat.config.js
       settings: {
         optimizer: {
           enabled: true,
