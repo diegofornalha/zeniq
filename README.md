@@ -23,25 +23,19 @@ Este projeto é um contrato inteligente simples escrito em Solidity para distrib
 1. **Clonar o Repositório**:
     
     ```bash
-    bashCopy code
     git clone https://github.com/diegofornalha/zeniq.git
-    
     ```
     
 2. **Navegar até o Diretório do Projeto**:
     
     ```bash
-    bashCopy code
     cd zeniq
-    
     ```
     
 3. **Instalar Dependências**:
     
     ```bash
-    bashCopy code
     npm install
-    
     ```
     
 
@@ -52,10 +46,8 @@ Este projeto é um contrato inteligente simples escrito em Solidity para distrib
     
     **Exemplo de `.env`**:
     
-    ```
-    envCopy code
+    ```env
     MNEMONIC=seu mnemônico aqui
-    
     ```
     
     **Nota**: Certifique-se de que este arquivo não seja incluído no controle de versão.
@@ -66,9 +58,7 @@ Este projeto é um contrato inteligente simples escrito em Solidity para distrib
 Para compilar o contrato, execute o seguinte comando:
 
 ```bash
-bashCopy code
 npx hardhat compile
-
 ```
 
 ## **Deploy**
@@ -76,9 +66,7 @@ npx hardhat compile
 Para fazer o deploy do contrato, execute o seguinte comando:
 
 ```bash
-bashCopy code
 npx hardhat run scripts/deploy.js
-
 ```
 
 O endereço do contrato implantado será exibido no console.
@@ -88,9 +76,7 @@ O endereço do contrato implantado será exibido no console.
 Para executar os testes, use o seguinte comando:
 
 ```bash
-bashCopy code
 npx hardhat test
-
 ```
 
 ## **Interagindo com o Contrato**
@@ -98,9 +84,7 @@ npx hardhat test
 Você pode usar o script **`distribute.js`** para interagir com o contrato:
 
 ```bash
-bashCopy code
 npx hardhat run scripts/distribute.js
-
 ```
 
 ---
