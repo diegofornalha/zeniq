@@ -1,8 +1,8 @@
-# **Zeniq - Simple Ether Distributor**
+# **Zeniq - ecomap**
 
 ## **Descrição**
 
-Este projeto é um contrato inteligente simples escrito em Solidity para distribuir Ether entre um conjunto de endereços. O projeto utiliza o ambiente de desenvolvimento Hardhat e a biblioteca ethers.js.
+Este projeto é um contrato inteligente simples escrito em Solidity chamado ecomap que serve para registrar informacoes na blockchain. O projeto utiliza o ambiente de desenvolvimento Hardhat.
 
 ## **Índice**
 
@@ -39,15 +39,31 @@ Este projeto é um contrato inteligente simples escrito em Solidity para distrib
     ```
     
 
-## **Configuração**
+## **Truffle Dashboard**
 
-1. Crie um arquivo **`.env`** ou **`.secret`** no diretório raiz do projeto.
-2. Adicione o mnemônico e outras variáveis de ambiente necessárias.
+Para abrir o Truffle Dashboard, você pode executar o seguinte comando:
+
+```bash
+truffle dashboard
+```
+
+## **Deploy com Truffle Dashboard**
+
+Para fazer o deploy do contrato usando o Truffle Dashboard, execute o seguinte comando:
+
+```bash
+sudo npx hardhat run scripts/deploy.js --network truffleDashboard
+```
+
+## **Configuração do `.env`**
+
+1. Crie um arquivo **`.env`** no diretório raiz do projeto.
+2. Adicione a chave privada e outras variáveis de ambiente necessárias.
     
     **Exemplo de `.env`**:
     
-    ```env
-    MNEMONIC=seu mnemônico aqui
+    ```
+    PRIVATE_KEY=0xSuaChavePrivadaAqui
     ```
     
     **Nota**: Certifique-se de que este arquivo não seja incluído no controle de versão.
@@ -55,10 +71,10 @@ Este projeto é um contrato inteligente simples escrito em Solidity para distrib
 
 ## **Compilação**
 
-Para compilar o contrato, execute o seguinte comando:
+Para compilar o contrato, execute o seguinte comando:npx hardhat compile
 
 ```bash
-npx hardhat compile
+sudo npx hardhat compile
 ```
 
 ## **Deploy**
@@ -66,7 +82,7 @@ npx hardhat compile
 Para fazer o deploy do contrato, execute o seguinte comando:
 
 ```bash
-npx hardhat run scripts/deploy.js
+sudo npx hardhat run scripts/deploy.j
 ```
 
 O endereço do contrato implantado será exibido no console.
@@ -76,7 +92,7 @@ O endereço do contrato implantado será exibido no console.
 Para executar os testes, use o seguinte comando:
 
 ```bash
-npx hardhat test
+sudo npx hardhat test
 ```
 
 ## **Interagindo com o Contrato**
@@ -84,7 +100,23 @@ npx hardhat test
 Você pode usar o script **`distribute.js`** para interagir com o contrato:
 
 ```bash
-npx hardhat run scripts/distribute.js
+sudo npx hardhat run scripts/distribute.js
 ```
 
 ---
+
+## **Deploy na Rede Zeniq**
+
+Para fazer o deploy do contrato na rede Zeniq, execute o seguinte comando:
+
+```bash
+sudo npx hardhat run scripts/deploy.js --network zeniq
+```
+
+Execute o seguinte comando para interagir com o contrato:
+
+```bash
+sudo npx hardhat run scripts/distribute.js --network zeniq
+```
+
+Isso executará o script e interagirá com o contrato implantado na rede Zeniq.
